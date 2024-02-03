@@ -22,30 +22,47 @@ class HomeView extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text('Gerenciador de Contas'),
+            backgroundColor: Colors.purple,
           ),
           body: Column(
             children: <Widget>[
-              Text('Total pago: R\$ ${controller.totalPaid}'),
-              Text('Total não pago: R\$ ${controller.totalUnpaid}'),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: controller.bills.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(controller.bills[index].name),
-                    // Use DateFormat para formatar a data
-                    subtitle: Text(
-                        'Vencimento: ${DateFormat('dd/MM/yyyy').format(controller.bills[index].dueDate)}'),
-                    trailing: Text('R\$ ${controller.bills[index].amount}'),
-                    leading: Icon(
-                        controller.bills[index].isPaid
-                            ? Icons.check_circle
-                            : Icons.error,
-                        color: controller.bills[index].isPaid
-                            ? Colors.green
-                            : Colors.red),
-                  );
-                },
+              Container(
+                padding: EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.purple, Colors.purpleAccent],
+                  ),
+                ),
+                child: Column(
+                  children: <Widget>[
+                    Text('Total pago: R\$ ${controller.totalPaid}',
+                        style: TextStyle(color: Colors.white)),
+                    Text('Total não pago: R\$ ${controller.totalUnpaid}',
+                        style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: controller.bills.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      child: ListTile(
+                        title: Text(controller.bills[index].name),
+                        subtitle: Text(
+                            'Vencimento: ${DateFormat('dd/MM/yyyy').format(controller.bills[index].dueDate)}'),
+                        trailing: Text('R\$ ${controller.bills[index].amount}'),
+                        leading: Icon(
+                            controller.bills[index].isPaid
+                                ? Icons.check_circle
+                                : Icons.error,
+                            color: controller.bills[index].isPaid
+                                ? Colors.green
+                                : Colors.red),
+                      ),
+                    );
+                  },
+                ),
               ),
             ],
           ),
@@ -136,6 +153,7 @@ class HomeView extends StatelessWidget {
               );
             },
             child: Icon(Icons.add),
+            backgroundColor: Colors.purple,
           ),
         );
       },
