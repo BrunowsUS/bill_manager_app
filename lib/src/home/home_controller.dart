@@ -1,4 +1,3 @@
-// HomeController.dart
 import 'package:flutter/material.dart';
 import 'package:bill_manager_app/src/models/bill.dart';
 
