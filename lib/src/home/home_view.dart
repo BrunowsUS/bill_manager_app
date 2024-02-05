@@ -21,50 +21,80 @@ class HomeView extends StatelessWidget {
       builder: (context, controller, child) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('Gerenciador de Contas'),
+            title: const Text('Gerenciador de Contas'),
             backgroundColor: Colors.purple,
           ),
-          body: Column(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Colors.purple, Colors.purpleAccent],
+          body: Padding(
+            padding: EdgeInsets.only(top: 5.0), // Espaçamento de 5px do AppBar
+            child: Column(
+              children: <Widget>[
+                Container(
+                  width:
+                      double.infinity, // Expandir por toda a extensão da tela
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.purple.shade100, // Cor mais fraca
+                    borderRadius:
+                        BorderRadius.circular(10), // Bordas arredondadas
+                    boxShadow: [
+                      // Sombra mais suave
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 3,
+                        blurRadius: 5,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start, // Conteúdo alinhado à esquerda
+                    mainAxisSize: MainAxisSize
+                        .min, // Faz o container acompanhar o tamanho do texto
+                    children: <Widget>[
+                      Text('Total pago: R\$ ${controller.totalPaid}',
+                          style: const TextStyle(color: Colors.white)),
+                      Text('Total não pago: R\$ ${controller.totalUnpaid}',
+                          style: const TextStyle(color: Colors.white)),
+                    ],
                   ),
                 ),
-                child: Column(
-                  children: <Widget>[
-                    Text('Total pago: R\$ ${controller.totalPaid}',
-                        style: TextStyle(color: Colors.white)),
-                    Text('Total não pago: R\$ ${controller.totalUnpaid}',
-                        style: TextStyle(color: Colors.white)),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Lista de contas',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ),
                 ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: controller.bills.length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      child: ListTile(
-                        title: Text(controller.bills[index].name),
-                        subtitle: Text(
-                            'Vencimento: ${DateFormat('dd/MM/yyyy').format(controller.bills[index].dueDate)}'),
-                        trailing: Text('R\$ ${controller.bills[index].amount}'),
-                        leading: Icon(
-                            controller.bills[index].isPaid
-                                ? Icons.check_circle
-                                : Icons.error,
-                            color: controller.bills[index].isPaid
-                                ? Colors.green
-                                : Colors.red),
-                      ),
-                    );
-                  },
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: controller.bills.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        child: ListTile(
+                          title: Text(controller.bills[index].name),
+                          subtitle: Text(
+                              'Vencimento: ${DateFormat('dd/MM/yyyy').format(controller.bills[index].dueDate)}'),
+                          trailing:
+                              Text('R\$ ${controller.bills[index].amount}'),
+                          leading: Icon(
+                              controller.bills[index].isPaid
+                                  ? Icons.check_circle
+                                  : Icons.error,
+                              color: controller.bills[index].isPaid
+                                  ? Colors.green
+                                  : Colors.red),
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
@@ -72,14 +102,15 @@ class HomeView extends StatelessWidget {
                 context: context,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    title: Text('Adicionar nova conta'),
+                    title: const Text('Adicionar nova conta'),
                     content: Form(
                       key: _formKey,
                       child: Column(
                         children: <Widget>[
                           TextFormField(
                             controller: _nameController,
-                            decoration: InputDecoration(labelText: 'Nome'),
+                            decoration:
+                                const InputDecoration(labelText: 'Nome'),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Por favor, insira o nome da conta.';
@@ -89,7 +120,7 @@ class HomeView extends StatelessWidget {
                           ),
                           TextFormField(
                             controller: _dueDateController,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 labelText: 'Data de vencimento (dd/mm/yyyy)'),
                             onTap: () async {
                               FocusScope.of(context)
@@ -115,7 +146,7 @@ class HomeView extends StatelessWidget {
                           TextFormField(
                             controller: _amountController,
                             decoration:
-                                InputDecoration(labelText: 'Valor (R\$)'),
+                                const InputDecoration(labelText: 'Valor (R\$)'),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Por favor, insira o valor.';
@@ -128,13 +159,13 @@ class HomeView extends StatelessWidget {
                     ),
                     actions: <Widget>[
                       TextButton(
-                        child: Text('Cancelar'),
+                        child: const Text('Cancelar'),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                       ),
                       TextButton(
-                        child: Text('Adicionar'),
+                        child: const Text('Adicionar'),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             controller.addBill(Bill(
@@ -152,7 +183,7 @@ class HomeView extends StatelessWidget {
                 },
               );
             },
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
             backgroundColor: Colors.purple,
           ),
         );
