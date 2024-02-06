@@ -2,10 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:bill_manager_app/src/models/bill.dart';
 
 class HomeController extends ChangeNotifier {
-  List<Bill> bills = [];
+  List<Bill> _bills = [];
   double totalPaid = 0;
   double totalUnpaid = 0;
   String filterOption = 'Todas as contas';
+
+  List<Bill> get bills {
+    _checkBillDueDate();
+    return _bills;
+  }
+
+  void _checkBillDueDate() {
+    DateTime now = DateTime.now();
+    for (var bill in _bills) {
+      if (!bill.isPaid && bill.dueDate.isBefore(now)) {
+        bill.isExpired = true;
+      }
+    }
+  }
 
   List<Bill> get filteredBills {
     switch (filterOption) {
@@ -13,6 +27,8 @@ class HomeController extends ChangeNotifier {
         return bills.where((bill) => bill.isPaid).toList();
       case 'Contas não pagas':
         return bills.where((bill) => !bill.isPaid).toList();
+      case 'Contas vencidas':
+        return bills.where((bill) => bill.isExpired && !bill.isPaid).toList();
       default:
         return bills;
     }

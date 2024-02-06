@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 class BillListTile extends StatelessWidget {
   final Bill bill;
-final ValueChanged<bool?> onBillStatusChanged;
+  final ValueChanged<bool?> onBillStatusChanged;
   final VoidCallback onBillTapped;
 
   BillListTile({
@@ -18,8 +18,18 @@ final ValueChanged<bool?> onBillStatusChanged;
     return Card(
       color: bill.isPaid ? Colors.green.shade100 : null,
       child: ListTile(
-        title: Text(bill.name),
-        subtitle: Text('Vencimento: ${DateFormat('dd/MM/yyyy').format(bill.dueDate)}'),
+        title: Row(
+          children: [
+            Text(bill.name),
+            if (bill.isExpired && !bill.isPaid)
+              const Text(
+                ' Vencida',
+                style: TextStyle(color: Colors.red),
+              ),
+          ],
+        ),
+        subtitle: Text(
+            'Vencimento: ${DateFormat('dd/MM/yyyy').format(bill.dueDate)}'),
         trailing: Text('R\$ ${bill.amount}'),
         leading: Column(
           mainAxisAlignment: MainAxisAlignment.center,

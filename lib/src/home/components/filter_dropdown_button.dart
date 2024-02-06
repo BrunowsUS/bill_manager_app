@@ -6,7 +6,6 @@ class FilterDropdownButton extends StatelessWidget {
 
   FilterDropdownButton({required this.controller});
 
-  @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
       value: controller.filterOption,
@@ -17,7 +16,8 @@ class FilterDropdownButton extends StatelessWidget {
       items: <String>[
         'Todas as contas',
         'Contas pagas',
-        'Contas não pagas'
+        'Contas não pagas',
+        'Contas vencidas', // Nova opção
       ].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,

@@ -56,7 +56,7 @@ class _EditBillDialogState extends State<EditBillDialog> {
                   Expanded(
                     child: TextFormField(
                       controller: widget.nameController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Nome',
                         labelStyle: TextStyle(fontWeight: FontWeight.bold),
                         border: OutlineInputBorder(),
@@ -71,7 +71,7 @@ class _EditBillDialogState extends State<EditBillDialog> {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 children: <Widget>[
                   Container(
@@ -96,7 +96,7 @@ class _EditBillDialogState extends State<EditBillDialog> {
                   Expanded(
                     child: TextFormField(
                       controller: widget.dueDateController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Data de vencimento',
                         labelStyle: TextStyle(fontWeight: FontWeight.bold),
                         border: OutlineInputBorder(),
@@ -105,7 +105,7 @@ class _EditBillDialogState extends State<EditBillDialog> {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 children: <Widget>[
                   Container(
@@ -115,7 +115,7 @@ class _EditBillDialogState extends State<EditBillDialog> {
                   Expanded(
                     child: TextFormField(
                       controller: widget.amountController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Valor',
                         labelStyle: TextStyle(fontWeight: FontWeight.bold),
                         border: OutlineInputBorder(),
@@ -130,7 +130,7 @@ class _EditBillDialogState extends State<EditBillDialog> {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 children: <Widget>[
                   Container(
