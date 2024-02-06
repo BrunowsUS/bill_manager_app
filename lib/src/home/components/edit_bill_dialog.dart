@@ -161,11 +161,14 @@ class _EditBillDialogState extends State<EditBillDialog> {
           width: double.infinity,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Colors.red.shade100,
+              backgroundColor: Colors.red.shade100,
             ),
             child: const Text('Excluir'),
             onPressed: widget.onBillDeleted,
           ),
+        ),
+        SizedBox(
+          height: 10,
         ),
         Container(
           width: double.infinity,

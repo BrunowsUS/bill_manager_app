@@ -7,14 +7,14 @@ class AppController extends ChangeNotifier {
 
   ThemeData get themeData => isDarkTheme
       ? ThemeData.dark().copyWith(
-          textTheme: GoogleFonts.robotoTextTheme(
+          textTheme: GoogleFonts.latoTextTheme(
             ThemeData.dark().textTheme,
           ),
         )
       : ThemeData(
           primarySwatch: Colors.purple,
         ).copyWith(
-          textTheme: GoogleFonts.robotoTextTheme(
+          textTheme: GoogleFonts.latoTextTheme(
             ThemeData.light().textTheme,
           ),
         );

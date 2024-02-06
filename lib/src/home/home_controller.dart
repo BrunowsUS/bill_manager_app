@@ -39,49 +39,45 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addBill(Bill bill) {
-    bills.add(bill);
-    if (bill.isPaid) {
-      totalPaid += bill.amount;
-    } else {
-      totalUnpaid += bill.amount;
+  void _updateTotalValues() {
+    totalPaid = 0;
+    totalUnpaid = 0;
+    for (var bill in _bills) {
+      if (bill.isPaid) {
+        totalPaid += bill.amount;
+      } else {
+        totalUnpaid += bill.amount;
+      }
     }
+  }
+
+  void addBill(Bill bill) {
+    _bills.add(bill);
+    _updateTotalValues();
     notifyListeners();
   }
 
   void updateBillStatus(int index, bool isPaid) {
     if (isPaid) {
-      totalPaid += bills[index].amount;
-      totalUnpaid -= bills[index].amount;
+      totalPaid += _bills[index].amount;
+      totalUnpaid -= _bills[index].amount;
     } else {
-      totalPaid -= bills[index].amount;
-      totalUnpaid += bills[index].amount;
+      totalPaid -= _bills[index].amount;
+      totalUnpaid += _bills[index].amount;
     }
-    bills[index].isPaid = isPaid;
+    _bills[index].isPaid = isPaid;
     notifyListeners();
   }
 
   void updateBill(int index, Bill updatedBill) {
-    if (bills[index].isPaid != updatedBill.isPaid) {
-      updateBillStatus(index, updatedBill.isPaid);
-    } else {
-      if (bills[index].isPaid) {
-        totalPaid = totalPaid - bills[index].amount + updatedBill.amount;
-      } else {
-        totalUnpaid = totalUnpaid - bills[index].amount + updatedBill.amount;
-      }
-    }
-    bills[index] = updatedBill;
+    _bills[index] = updatedBill;
+    _updateTotalValues();
     notifyListeners();
   }
 
   void deleteBill(int index) {
-    if (bills[index].isPaid) {
-      totalPaid -= bills[index].amount;
-    } else {
-      totalUnpaid -= bills[index].amount;
-    }
-    bills.removeAt(index);
+    _bills.removeAt(index);
+    _updateTotalValues();
     notifyListeners();
   }
 }

@@ -116,13 +116,16 @@ class AddBillDialog extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Colors.red.shade100,
+              backgroundColor: Colors.red.shade100,
             ),
             child: const Text('Cancelar'),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
+        ),
+        SizedBox(
+          height: 10,
         ),
         Container(
           width: double.infinity,
